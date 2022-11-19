@@ -186,7 +186,12 @@ public class TodaySpendingActivity extends AppCompatActivity {
                 Weeks weeks = Weeks.weeksBetween(epoch,now);
                 Months months = Months.monthsBetween(epoch, now);
 
-                Data data = new Data(itemS, date, id, noteS, Integer.parseInt(amountS), months.getMonths(), weeks.getWeeks());
+                String itemNday = itemS + date;
+                String itemNweek = itemS + weeks.getWeeks();
+                String itemNmonth = itemS + months.getMonths();
+
+
+                Data data = new Data(itemS, date, id, itemNday, itemNweek, itemNmonth,  Integer.parseInt(amountS), months.getMonths(), weeks.getWeeks(),noteS);
                 expensesRef.child(id).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
