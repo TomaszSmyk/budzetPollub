@@ -8,4 +8,18 @@
     <string name="have_an_account_log_in">Have an account? Log in</string>
     <string name="home_budget_pollub">Home budget POLLUB!</string>
     <string name="budget">Budget</string>
+
+    <string-array name="items">
+        <item>Select item</item>
+        <item>Transport</item>
+        <item>Food</item>
+        <item>House</item>
+        <item>Entertainment</item>
+        <item>Education</item>
+        <item>Charity</item>
+        <item>Apparel</item>
+        <item>Health</item>
+        <item>Personal</item>
+        <item>Other</item>
+    </string-array>
 </resources>
