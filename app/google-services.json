@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "224049624016",
+    "project_id": "homebudgetpollub",
+    "storage_bucket": "homebudgetpollub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224049624016:android:549ff7fa8d874ec230bfd5",
+        "android_client_info": {
+          "package_name": "com.example.homebudgetpollub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224049624016-oc3bfb5l8292fs3aclhodhhm3lrcvrpl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.homebudgetpollub",
+            "certificate_hash": "7f3be9427cbc563ae454c589c122e31292f6b75c"
+          }
+        },
+        {
+          "client_id": "224049624016-8o7t2u2vb2mdv80bujodmdngdbvc0vqo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMt3n7BAI54_Aau2h1T0FqdAPJqBGsNDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224049624016-8o7t2u2vb2mdv80bujodmdngdbvc0vqo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

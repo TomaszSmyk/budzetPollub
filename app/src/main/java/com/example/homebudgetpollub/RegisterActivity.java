@@ -1,6 +1,5 @@
 package com.example.homebudgetpollub;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -13,16 +12,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private EditText email, password;
-    private Button loginBtn;
-    private TextView loginQn;
+    private Button registerBtn;
+    private TextView registerQn;
 
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
@@ -30,26 +26,25 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
+        setContentView(R.layout.activity_register);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
-        loginBtn = findViewById(R.id.loginBtn);
-        loginQn = findViewById(R.id.loginQn);
+        registerBtn = findViewById(R.id.registerBtn);
+        registerQn = findViewById(R.id.registerQn);
 
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
 
-        loginQn.setOnClickListener(new View.OnClickListener() {
+        registerQn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
 
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String emailString = email.getText().toString();
@@ -63,30 +58,28 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 else {
-                    progressDialog.setMessage("Login in progress");
+                    progressDialog.setMessage("Registration in progress");
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();
 
-                    mAuth.signInWithEmailAndPassword(emailString, passwordString).addOnCompleteListener(task -> {
+                    mAuth.createUserWithEmailAndPassword(emailString, passwordString).addOnCompleteListener(task -> {
                         if(task.isSuccessful()) {
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            Toast.makeText(LoginActivity.this, "Logged!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            Toast.makeText(RegisterActivity.this, "Registered!", Toast.LENGTH_SHORT).show();
                             startActivity(intent);
                             finish();
                             progressDialog.dismiss();
                         } else {
-                            Toast.makeText(LoginActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     });
 
                 }
-
-
-
-
             }
         });
+
+
 
     }
 }

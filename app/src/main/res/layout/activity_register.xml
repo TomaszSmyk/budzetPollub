@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:layout_margin="20dp"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
     <ImageView
         android:layout_width="200dp"
@@ -38,20 +38,17 @@
         android:layout_margin="5dp" />
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/registerBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login"
+        android:text="@string/register"
         android:layout_margin="5dp" />
     <TextView
-        android:id="@+id/loginQn"
+        android:id="@+id/registerQn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dont_have_an_account_sign_up"
+        android:text="@string/have_an_account_log_in"
         android:gravity="center"
         />
-
-
-
 
 </LinearLayout>
