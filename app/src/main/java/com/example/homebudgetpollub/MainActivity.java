@@ -61,14 +61,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//
-//        analyticsCardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, AnalyticsActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
+        analyticsCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ChooseAnalyticActivity.class);
+                startActivity(intent);
+            }
+        });
 //
 //        historyCardView.setOnClickListener(new View.OnClickListener() {
 //            @Override

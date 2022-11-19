@@ -48,4 +48,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.firebaseui:firebase-ui-database:6.2.1'
 
+    //anychart
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+
 }
