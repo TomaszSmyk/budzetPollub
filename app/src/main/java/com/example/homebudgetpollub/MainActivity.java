@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, BudgetActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -42,9 +41,42 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, TodaySpendingActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
+
+        weekCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, WeekSpendingActivity.class);
+                intent.putExtra("type", "week");
+                startActivity(intent);
+            }
+        });
+
+        monthCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, WeekSpendingActivity.class);
+                intent.putExtra("type", "month");
+                startActivity(intent);
+            }
+        });
+//
+//        analyticsCardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, AnalyticsActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        historyCardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
 
