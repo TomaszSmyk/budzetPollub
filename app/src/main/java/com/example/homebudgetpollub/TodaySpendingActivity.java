@@ -52,7 +52,7 @@ public class TodaySpendingActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private String onlineUserId = "";
-    DatabaseReference expensesRef;
+    private DatabaseReference expensesRef;
 
     private TodayItemsAdapter todayItemsAdapter;
     private List<Data> myDataList;
