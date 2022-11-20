@@ -266,7 +266,7 @@ public class DailyAnalyticsActivity extends AnalyticsActivity {
                         }
                         percents[i] = (totals[i] / ratios[i]) * 100;
 
-                        txtViews[i].setText(percents[i] + "% used of " + totalSpentAmountRatio + " Status:");
+                        txtViews[i].setText(percents[i] + "% used of " + ratios[i] + " Status:");
                         if(percents[i] < 50) {
                             views[i].setImageResource(R.drawable.green);
                         } else if (percents[i] > 100) {
@@ -296,6 +296,7 @@ public class DailyAnalyticsActivity extends AnalyticsActivity {
                     Pie pie = AnyChart.pie();
                     List<DataEntry> data = new ArrayList<>();
                     String[] names = getResources().getStringArray(R.array.items);
+                    names = Arrays.copyOfRange(names, 1, names.length);
                     int[] totals = new int[names.length];
                     for (int i = 0; i<names.length; i++) {
                         String childName = "day" + names[i];
