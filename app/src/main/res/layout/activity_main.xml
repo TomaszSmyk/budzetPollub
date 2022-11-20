@@ -364,15 +364,15 @@
 
         </GridLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            app:fabSize="normal"
-            android:id="@+id/fab"
-            android:backgroundTint="#0a0"
-            android:src="@drawable/ic_add"
-            android:layout_margin="16dp" />
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom|end"-->
+<!--            app:fabSize="normal"-->
+<!--            android:id="@+id/fab"-->
+<!--            android:backgroundTint="#0a0"-->
+<!--            android:src="@drawable/ic_add"-->
+<!--            android:layout_margin="16dp" />-->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

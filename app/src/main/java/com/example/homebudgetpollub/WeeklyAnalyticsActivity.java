@@ -109,10 +109,6 @@ public class WeeklyAnalyticsActivity extends AnalyticsActivity {
         monthRatioSpending = findViewById(R.id.monthRatioSpending);
         monthRatioSpending_image = findViewById(R.id.monthRatioSpending_image);
 
-        monthSpentAmount = findViewById(R.id.monthSpentAmount);
-        monthRatioSpending = findViewById(R.id.monthRatioSpending);
-        monthRatioSpending_image = findViewById(R.id.monthRatioSpending_image);
-
         getTotalWeekTransportExpenses();
         getTotalWeekFoodExpenses();
         getTotalWeekHouseExpenses();
@@ -126,8 +122,13 @@ public class WeeklyAnalyticsActivity extends AnalyticsActivity {
 
         getTotalWeekSpending();
 
-        loadGraph();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
+        loadGraph();
         setStatusAndImageResource();
 
     }

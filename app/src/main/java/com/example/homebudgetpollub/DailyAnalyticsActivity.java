@@ -128,6 +128,12 @@ public class DailyAnalyticsActivity extends AnalyticsActivity {
 
         getTotalDaySpending();
 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         loadGraph();
 
         setStatusAndImageResource();
