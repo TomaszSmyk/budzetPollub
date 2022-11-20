@@ -13,31 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class WeeklyAnalyticsActivity extends AppCompatActivity {
-
-
-    private Toolbar settingsToolbar;
-
-    private FirebaseAuth mAuth;
-    private String onlineUserId = "";
-    private DatabaseReference expensesRef, personalRef;
-
-    private TextView totalBudgetAmountTextView, analyticsTransportAmount,analyticsFoodAmount,analyticsHouseExpensesAmount,
-            analyticsEntertainmentAmount,analyticsEducationAmount,analyticsCharityAmount,analyticsApparelAmount,
-            analyticsHealthAmount,analyticsPersonalExpensesAmount,analyticsOtherAmount;
-
-    private RelativeLayout linearLayoutTransport,linearLayoutFood,linearLayoutFoodHouse,linearLayoutEntertainment,
-            linearLayoutEducation,linearLayoutCharity,linearLayoutApparel,linearLayoutHealth,linearLayoutPersonalExp,
-            linearLayoutOther,linearLayoutAnalysis;
-
-    private AnyChartView anyChartView;
-
-    private TextView progress_ratio_transport, progress_ratio_food, progress_ratio_house, progress_ratio_ent,
-            progress_ratio_edu, progress_ratio_cha, progress_ratio_app, progress_ratio_hea,
-            progress_ratio_per, progress_ratio_oth;
-
-    private ImageView status_Image_transport, status_Image_food, status_Image_house, status_Image_ent,
-            status_Image_edu, status_Image_cha, status_Image_app, status_Image_hea, status_Image_per, status_Image_oth;
+public class WeeklyAnalyticsActivity extends AnalyticsActivity {
 
 
     @Override
@@ -109,6 +85,10 @@ public class WeeklyAnalyticsActivity extends AppCompatActivity {
         status_Image_hea = findViewById(R.id.status_Image_hea);
         status_Image_per = findViewById(R.id.status_Image_per);
         status_Image_oth = findViewById(R.id.status_Image_oth);
+
+        monthSpentAmount = findViewById(R.id.monthSpentAmount);
+        monthRatioSpending = findViewById(R.id.monthRatioSpending);
+        monthRatioSpending_image = findViewById(R.id.monthRatioSpending_image);
 
 
     }

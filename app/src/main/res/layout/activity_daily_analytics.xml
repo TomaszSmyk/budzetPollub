@@ -834,7 +834,7 @@
                             android:text="Total spent: $0"
                             android:textColor="#000"
                             android:textStyle="bold"
-                            android:textSize="18sp"/>
+                            android:textSize="15sp"/>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -846,7 +846,7 @@
                                 android:text="status"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="18sp"/>
+                                android:textSize="12sp"/>
 
                             <ImageView
                                 android:id="@+id/monthRatioSpending_image"
