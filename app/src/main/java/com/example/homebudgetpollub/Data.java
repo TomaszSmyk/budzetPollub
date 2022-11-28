@@ -4,6 +4,7 @@ public class Data {
     String item, date,id, itemNday, itemNweek, itemNmonth;
     private int amount, month, week;
     String notes;
+    private boolean isCyclical = false;
 
     public Data() {
     }
@@ -19,6 +20,14 @@ public class Data {
         this.month = month;
         this.week = week;
         this.notes = notes;
+    }
+
+    public boolean isCyclical() {
+        return isCyclical;
+    }
+
+    public void setCyclical(boolean cyclical) {
+        isCyclical = cyclical;
     }
 
     public String getItem() {
