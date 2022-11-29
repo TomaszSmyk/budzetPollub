@@ -1,18 +1,19 @@
 package com.example.homebudgetpollub;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,18 +29,14 @@ import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference expensesRef, personalRef;
-    private String onlineUserId = "";
-
-    private Toolbar toolbar;
-
-    private TodayItemsAdapter todayItemsAdapter;
-    private List<Data> myDataList;
-
-    private Button search;
     TextView historyTotalAmountSpent;
     RecyclerView recyclerView;
+    private DatabaseReference expensesRef;
+    private String onlineUserId = "";
+    private Toolbar toolbar;
+    private TodayItemsAdapter todayItemsAdapter;
+    private List<Data> myDataList;
+    private Button search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +47,10 @@ public class HistoryActivity extends AppCompatActivity implements DatePickerDial
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("History");
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         onlineUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         expensesRef = FirebaseDatabase.getInstance().getReference("expenses").child(onlineUserId);
-        personalRef = FirebaseDatabase.getInstance().getReference("personal").child(onlineUserId);
+        DatabaseReference personalRef = FirebaseDatabase.getInstance().getReference("personal").child(onlineUserId);
 
         search = findViewById(R.id.search);
         historyTotalAmountSpent = findViewById(R.id.historyTotalAmountSpent);
@@ -67,16 +64,8 @@ public class HistoryActivity extends AppCompatActivity implements DatePickerDial
         myDataList = new ArrayList<>();
         todayItemsAdapter = new TodayItemsAdapter(HistoryActivity.this, myDataList);
         recyclerView.setAdapter(todayItemsAdapter);
-        
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDataPickerDialog();
-            }
-        });
-        
 
-
+        search.setOnClickListener(view -> showDataPickerDialog());
     }
 
     private void showDataPickerDialog() {
@@ -93,7 +82,7 @@ public class HistoryActivity extends AppCompatActivity implements DatePickerDial
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
         int months = month + 1;
-        String date  = dayOfMonth + "-" + months + "-" +year;
+        String date = dayOfMonth + "-" + months + "-" + year;
         Toast.makeText(this, date, Toast.LENGTH_SHORT).show();
 
         Query query = expensesRef.orderByChild("date").equalTo(date);
@@ -102,7 +91,7 @@ public class HistoryActivity extends AppCompatActivity implements DatePickerDial
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 myDataList.clear();
                 int totalAmount = 0;
-                for ( DataSnapshot dataSnapshot: snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Data data = dataSnapshot.getValue(Data.class);
                     myDataList.add(data);
                     totalAmount += data.getAmount();
@@ -118,7 +107,7 @@ public class HistoryActivity extends AppCompatActivity implements DatePickerDial
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("firebase", "error", error.toException());
             }
         });
     }

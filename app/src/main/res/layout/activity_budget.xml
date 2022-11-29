@@ -19,7 +19,18 @@
         android:id="@+id/totalBudgetAmountTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Total budget amount: 0$"
+        android:text="Month budget: $0"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/salaryTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Salary: $0"
         android:textSize="25sp"
         android:textStyle="bold"
         android:textAlignment="center"
@@ -44,6 +55,16 @@
             android:id="@+id/fab"
             android:backgroundTint="#0a0"
             android:src="@drawable/ic_add"
+            android:layout_margin="16dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            app:fabSize="normal"
+            android:id="@+id/fabSalary"
+            android:backgroundTint="#0048FF"
+            android:src="@android:drawable/ic_menu_myplaces"
             android:layout_margin="16dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

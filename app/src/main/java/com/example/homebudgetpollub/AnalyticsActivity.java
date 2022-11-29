@@ -16,22 +16,57 @@ public class AnalyticsActivity extends AppCompatActivity {
 
     protected FirebaseAuth mAuth;
     protected String onlineUserId = "";
-    protected DatabaseReference expensesRef, personalRef;
+    protected DatabaseReference expensesRef;
+    protected DatabaseReference personalRef;
 
-    protected TextView totalBudgetAmountTextView, analyticsTransportAmount,analyticsFoodAmount,analyticsHouseExpensesAmount,
-            analyticsEntertainmentAmount,analyticsEducationAmount,analyticsCharityAmount,analyticsApparelAmount,
-            analyticsHealthAmount,analyticsPersonalExpensesAmount,analyticsOtherAmount, monthSpentAmount, monthRatioSpending;
+    protected TextView totalBudgetAmountTextView;
+    protected TextView analyticsTransportAmount;
+    protected TextView analyticsFoodAmount;
+    protected TextView analyticsHouseExpensesAmount;
+    protected TextView analyticsEntertainmentAmount;
+    protected TextView analyticsEducationAmount;
+    protected TextView analyticsCharityAmount;
+    protected TextView analyticsApparelAmount;
+    protected TextView analyticsHealthAmount;
+    protected TextView analyticsPersonalExpensesAmount;
+    protected TextView analyticsOtherAmount;
+    protected TextView monthSpentAmount;
+    protected TextView monthRatioSpending;
 
-    protected RelativeLayout linearLayoutTransport,linearLayoutFood,linearLayoutFoodHouse,linearLayoutEntertainment,
-            linearLayoutEducation,linearLayoutCharity,linearLayoutApparel,linearLayoutHealth,linearLayoutPersonalExp,
-            linearLayoutOther,linearLayoutAnalysis;
+    protected RelativeLayout linearLayoutTransport;
+    protected RelativeLayout linearLayoutFood;
+    protected RelativeLayout linearLayoutFoodHouse;
+    protected RelativeLayout linearLayoutEntertainment;
+    protected RelativeLayout linearLayoutEducation;
+    protected RelativeLayout linearLayoutCharity;
+    protected RelativeLayout linearLayoutApparel;
+    protected RelativeLayout linearLayoutHealth;
+    protected RelativeLayout linearLayoutPersonalExp;
+    protected RelativeLayout linearLayoutOther;
+    protected RelativeLayout linearLayoutAnalysis;
 
     protected AnyChartView anyChartView;
 
-    protected TextView progress_ratio_transport, progress_ratio_food, progress_ratio_house, progress_ratio_ent,
-            progress_ratio_edu, progress_ratio_cha, progress_ratio_app, progress_ratio_hea,
-            progress_ratio_per, progress_ratio_oth;
+    protected TextView progress_ratio_transport;
+    protected TextView progress_ratio_food;
+    protected TextView progress_ratio_house;
+    protected TextView progress_ratio_ent;
+    protected TextView progress_ratio_edu;
+    protected TextView progress_ratio_cha;
+    protected TextView progress_ratio_app;
+    protected TextView progress_ratio_hea;
+    protected TextView progress_ratio_per;
+    protected TextView progress_ratio_oth;
 
-    protected ImageView status_Image_transport, status_Image_food, status_Image_house, status_Image_ent,
-            status_Image_edu, status_Image_cha, status_Image_app, status_Image_hea, status_Image_per, status_Image_oth, monthRatioSpending_image;
+    protected ImageView status_Image_transport;
+    protected ImageView status_Image_food;
+    protected ImageView status_Image_house;
+    protected ImageView status_Image_ent;
+    protected ImageView status_Image_edu;
+    protected ImageView status_Image_cha;
+    protected ImageView status_Image_app;
+    protected ImageView status_Image_hea;
+    protected ImageView status_Image_per;
+    protected ImageView status_Image_oth;
+    protected ImageView monthRatioSpending_image;
 }

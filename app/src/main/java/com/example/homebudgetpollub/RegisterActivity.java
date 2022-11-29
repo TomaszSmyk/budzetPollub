@@ -1,7 +1,5 @@
 package com.example.homebudgetpollub;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -50,20 +50,18 @@ public class RegisterActivity extends AppCompatActivity {
                 String emailString = email.getText().toString();
                 String passwordString = password.getText().toString();
 
-                if(TextUtils.isEmpty(emailString)){
+                if (TextUtils.isEmpty(emailString)) {
                     email.setError("Email is required");
                 }
-                if(TextUtils.isEmpty(passwordString)){
+                if (TextUtils.isEmpty(passwordString)) {
                     password.setError("Password is required");
-                }
-
-                else {
+                } else {
                     progressDialog.setMessage("Registration in progress");
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();
 
                     mAuth.createUserWithEmailAndPassword(emailString, passwordString).addOnCompleteListener(task -> {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             Toast.makeText(RegisterActivity.this, "Registered!", Toast.LENGTH_SHORT).show();
                             startActivity(intent);
@@ -78,7 +76,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-
 
 
     }

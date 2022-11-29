@@ -1,9 +1,16 @@
 package com.example.homebudgetpollub;
 
 public class Data {
-    String item, date,id, itemNday, itemNweek, itemNmonth;
-    private int amount, month, week;
+    String item;
+    String date;
+    String id;
+    String itemNday;
+    String itemNweek;
+    String itemNmonth;
     String notes;
+    private int amount;
+    private int month;
+    private int week;
     private boolean isCyclical = false;
 
     public Data() {

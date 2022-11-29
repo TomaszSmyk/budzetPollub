@@ -1,15 +1,15 @@
 package com.example.homebudgetpollub;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -29,15 +29,13 @@ import java.util.List;
 
 public class WeekSpendingActivity extends AppCompatActivity {
 
+    DatabaseReference expensesRef;
     private Toolbar toolbar;
     private TextView totalWeekAmountTextView;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
-
     private FirebaseAuth mAuth;
     private String onlineUserId = "";
-    DatabaseReference expensesRef;
-
     private WeekSpendingAdapter weekSpendingAdapter;
     private List<Data> myDataList;
 
@@ -68,11 +66,11 @@ public class WeekSpendingActivity extends AppCompatActivity {
         weekSpendingAdapter = new WeekSpendingAdapter(WeekSpendingActivity.this, myDataList);
         recyclerView.setAdapter(weekSpendingAdapter);
 
-        if(getIntent().getExtras() != null) {
+        if (getIntent().getExtras() != null) {
             type = getIntent().getStringExtra("type");
-            if("week".equals(type)) {
+            if ("week".equals(type)) {
                 readWeekSpendingItems();
-            } else  if (type.equals("month")) {
+            } else if (type.equals("month")) {
                 readMonthSpendingItems();
             }
         }
@@ -83,7 +81,7 @@ public class WeekSpendingActivity extends AppCompatActivity {
         MutableDateTime epoch = new MutableDateTime();
         epoch.setDate(0);
         DateTime now = new DateTime();
-        Weeks weeks = Weeks.weeksBetween(epoch,now);
+        Weeks weeks = Weeks.weeksBetween(epoch, now);
 
         expensesRef = FirebaseDatabase.getInstance().getReference("expenses").child(onlineUserId);
 
@@ -94,7 +92,7 @@ public class WeekSpendingActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 myDataList.clear();
                 int totalWeekAmount = 0;
-                for(DataSnapshot ds: snapshot.getChildren()) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     Data data = ds.getValue(Data.class);
                     myDataList.add(data);
                     totalWeekAmount += data.getAmount();
@@ -113,12 +111,11 @@ public class WeekSpendingActivity extends AppCompatActivity {
     }
 
 
-
     private void readMonthSpendingItems() {
         MutableDateTime epoch = new MutableDateTime();
         epoch.setDate(0);
         DateTime now = new DateTime();
-        Months months = Months.monthsBetween(epoch,now);
+        Months months = Months.monthsBetween(epoch, now);
 
         expensesRef = FirebaseDatabase.getInstance().getReference("expenses").child(onlineUserId);
 
@@ -129,7 +126,7 @@ public class WeekSpendingActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 myDataList.clear();
                 int totalWeekAmount = 0;
-                for(DataSnapshot ds: snapshot.getChildren()) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     Data data = ds.getValue(Data.class);
                     myDataList.add(data);
                     totalWeekAmount += data.getAmount();

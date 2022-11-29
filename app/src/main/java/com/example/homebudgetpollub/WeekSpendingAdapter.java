@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class WeekSpendingAdapter extends RecyclerView.Adapter<WeekSpendingAdapter.ViewHolder>{
+public class WeekSpendingAdapter extends RecyclerView.Adapter<WeekSpendingAdapter.ViewHolder> {
 
-    private Context mContext;
-    private List<Data> myDataList;
+    private final Context mContext;
+    private final List<Data> myDataList;
 
     public WeekSpendingAdapter(Context mContext, List<Data> myDataList) {
         this.mContext = mContext;
@@ -36,40 +36,7 @@ public class WeekSpendingAdapter extends RecyclerView.Adapter<WeekSpendingAdapte
         holder.amount.setText("Amount: " + data.getAmount());
         holder.date.setText("Date: " + data.getDate());
         holder.note.setText("Note: " + data.getNotes());
-
-        switch (data.getItem()) {
-            case "Transport":
-                holder.imageView.setImageResource(R.drawable.ic_transport);
-                break;
-            case "Food":
-                holder.imageView.setImageResource(R.drawable.ic_food);
-                break;
-            case "House":
-                holder.imageView.setImageResource(R.drawable.ic_house);
-                break;
-            case "Entertainment":
-                holder.imageView.setImageResource(R.drawable.ic_entertainment);
-                break;
-            case "Education":
-                holder.imageView.setImageResource(R.drawable.ic_education);
-                break;
-            case "Charity":
-                holder.imageView.setImageResource(R.drawable.ic_consultancy);
-                break;
-            case "Apparel":
-                holder.imageView.setImageResource(R.drawable.ic_shirt);
-                break;
-            case "Health":
-                holder.imageView.setImageResource(R.drawable.ic_health);
-                break;
-            case "Personal":
-                holder.imageView.setImageResource(R.drawable.ic_personalcare);
-                break;
-            case "Other":
-                holder.imageView.setImageResource(R.drawable.ic_other);
-                break;
-        }
-
+        holder.imageView.setImageResource(ImagesProvider.provideItemsWithImages(data));
     }
 
     @Override
@@ -81,6 +48,7 @@ public class WeekSpendingAdapter extends RecyclerView.Adapter<WeekSpendingAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView item, amount, date, note;
         public ImageView imageView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

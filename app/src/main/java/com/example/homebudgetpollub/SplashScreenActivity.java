@@ -1,7 +1,5 @@
 package com.example.homebudgetpollub;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,9 +9,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private static int SPLASH = 3000;
+    private static final int SPLASH = 3000;
     private ImageView imageView;
     private TextView appName;
     private Animation animation;
@@ -24,7 +24,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen);
 
-        animation= AnimationUtils.loadAnimation(this, R.anim.animation);
+        animation = AnimationUtils.loadAnimation(this, R.anim.animation);
         imageView = findViewById(R.id.imageView);
         appName = findViewById(R.id.appName);
 

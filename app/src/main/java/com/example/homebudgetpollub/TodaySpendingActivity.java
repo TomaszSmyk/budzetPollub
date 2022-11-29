@@ -1,12 +1,5 @@
 package com.example.homebudgetpollub;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -22,6 +15,13 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,7 +44,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -176,14 +175,11 @@ public class TodaySpendingActivity extends AppCompatActivity implements DatePick
         editTextDate.setVisibility(View.VISIBLE);
         note.setVisibility(View.VISIBLE);
 
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                isCyclical = isChecked;
-                if (isChecked) {
-                    editTextToSetDateOn = editTextDate;
-                    showDataPickerDialog();
-                }
+        checkBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            isCyclical = isChecked;
+            if (isChecked) {
+                editTextToSetDateOn = editTextDate;
+                showDataPickerDialog();
             }
         });
 
@@ -234,17 +230,14 @@ public class TodaySpendingActivity extends AppCompatActivity implements DatePick
                 if (isCyclical) {
                     setCyclicalExpenses(data, editTextDate);
                 } else {
-                    expensesRef.child(id).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(TodaySpendingActivity.this, "Budget item added successfuly", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(TodaySpendingActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
-                            }
-
-                            loader.dismiss();
+                    expensesRef.child(id).setValue(data).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(TodaySpendingActivity.this, "Budget item added successfuly", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(TodaySpendingActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                         }
+
+                        loader.dismiss();
                     });
                 }
 
@@ -252,21 +245,16 @@ public class TodaySpendingActivity extends AppCompatActivity implements DatePick
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        cancel.setOnClickListener(view1 -> dialog.dismiss());
 
         dialog.show();
     }
 
     private void setCyclicalExpenses(Data data, EditText editTextDate) {
         String startDate = editTextDate.getText().toString();
-        LocalDate ldate = null;
+        LocalDate ldate;
 
-        DateTimeFormatter dtf = null;
+        DateTimeFormatter dtf;
 
 
         try {
@@ -306,12 +294,7 @@ public class TodaySpendingActivity extends AppCompatActivity implements DatePick
             data.setWeek((int) weeks);
             data.setMonth((int) months);
 
-            expensesRef.child(id).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    loader.dismiss();
-                }
-            });
+            expensesRef.child(id).setValue(data).addOnCompleteListener(task -> loader.dismiss());
             ldate = ldate.plus(1, ChronoUnit.MONTHS);
 
         }

@@ -1,5 +1,7 @@
 package com.example.homebudgetpollub;
 
+import static com.example.homebudgetpollub.ImagesProvider.provideItemsWithImages;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,10 +32,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-public class TodayItemsAdapter extends RecyclerView.Adapter<TodayItemsAdapter.ViewHolder>{
+public class TodayItemsAdapter extends RecyclerView.Adapter<TodayItemsAdapter.ViewHolder> {
 
-    private Context mContext;
-    private List<Data> myDataList;
+    private final Context mContext;
+    private final List<Data> myDataList;
 
     private String post_key = "";
     private String item = "";
@@ -61,51 +63,21 @@ public class TodayItemsAdapter extends RecyclerView.Adapter<TodayItemsAdapter.Vi
         holder.date.setText("Date: " + data.getDate());
         holder.note.setText("Note: " + data.getNotes());
 
-        switch (data.getItem()) {
-            case "Transport":
-                holder.imageView.setImageResource(R.drawable.ic_transport);
-                break;
-            case "Food":
-                holder.imageView.setImageResource(R.drawable.ic_food);
-                break;
-            case "House":
-                holder.imageView.setImageResource(R.drawable.ic_house);
-                break;
-            case "Entertainment":
-                holder.imageView.setImageResource(R.drawable.ic_entertainment);
-                break;
-            case "Education":
-                holder.imageView.setImageResource(R.drawable.ic_education);
-                break;
-            case "Charity":
-                holder.imageView.setImageResource(R.drawable.ic_consultancy);
-                break;
-            case "Apparel":
-                holder.imageView.setImageResource(R.drawable.ic_shirt);
-                break;
-            case "Health":
-                holder.imageView.setImageResource(R.drawable.ic_health);
-                break;
-            case "Personal":
-                holder.imageView.setImageResource(R.drawable.ic_personalcare);
-                break;
-            case "Other":
-                holder.imageView.setImageResource(R.drawable.ic_other);
-                break;
-        }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                post_key = data.getId();
-                item = data.getItem();
-                amount = data.getAmount();
-                note = data.getNotes();
-                updateData();
-            }
+        holder.imageView.setImageResource(ImagesProvider.provideItemsWithImages(data));
+
+
+        holder.itemView.setOnClickListener(view -> {
+            post_key = data.getId();
+            item = data.getItem();
+            amount = data.getAmount();
+            note = data.getNotes();
+            updateData();
         });
 
     }
+
+
 
     private void updateData() {
         AlertDialog.Builder myDialog = new AlertDialog.Builder(mContext);
@@ -132,61 +104,55 @@ public class TodayItemsAdapter extends RecyclerView.Adapter<TodayItemsAdapter.Vi
 
         dialog.show();
 
-        updateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                amount = Integer.parseInt(mAmount.getText().toString());
-                note = mNotes.getText().toString();
+        updateBtn.setOnClickListener(view -> {
+            amount = Integer.parseInt(mAmount.getText().toString());
+            note = mNotes.getText().toString();
 
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                Calendar cal = Calendar.getInstance();
-                String date = dateFormat.format(cal.getTime());
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Calendar cal = Calendar.getInstance();
+            String date = dateFormat.format(cal.getTime());
 
-                MutableDateTime epoch = new MutableDateTime();
-                epoch.setDate(0);
-                DateTime now = new DateTime();
-                Weeks weeks = Weeks.weeksBetween(epoch,now);
-                Months months = Months.monthsBetween(epoch, now);
+            MutableDateTime epoch = new MutableDateTime();
+            epoch.setDate(0);
+            DateTime now = new DateTime();
+            Weeks weeks = Weeks.weeksBetween(epoch, now);
+            Months months = Months.monthsBetween(epoch, now);
 
-                String itemNday = item + date;
-                String itemNweek = item + weeks.getWeeks();
-                String itemNmonth = item + months.getMonths();
+            String itemNday = item + date;
+            String itemNweek = item + weeks.getWeeks();
+            String itemNmonth = item + months.getMonths();
 
-                Data data = new Data(item, date, post_key, itemNday, itemNweek, itemNmonth,  amount, months.getMonths(), weeks.getWeeks(),note);
+            Data data = new Data(item, date, post_key, itemNday, itemNweek, itemNmonth, amount, months.getMonths(), weeks.getWeeks(), note);
 
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("expenses").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                reference.child(post_key).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()) {
-                            Toast.makeText(mContext, "Updated successfully", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
-                        }
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("expenses").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            reference.child(post_key).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(mContext, "Updated successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
                     }
-                });
+                }
+            });
 
-                dialog.dismiss();
-            }
+            dialog.dismiss();
         });
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("expenses").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                reference.child(post_key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()) {
-                            Toast.makeText(mContext, "Deleted successfully", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
-                        }
+        deleteBtn.setOnClickListener(view -> {
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("expenses").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            reference.child(post_key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(mContext, "Deleted successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
                     }
-                });
+                }
+            });
 
-                dialog.dismiss();
-            }
+            dialog.dismiss();
         });
 
     }
@@ -209,8 +175,6 @@ public class TodayItemsAdapter extends RecyclerView.Adapter<TodayItemsAdapter.Vi
             note = itemView.findViewById(R.id.note);
             date = itemView.findViewById(R.id.date);
             imageView = itemView.findViewById(R.id.imageView);
-
-
 
 
         }

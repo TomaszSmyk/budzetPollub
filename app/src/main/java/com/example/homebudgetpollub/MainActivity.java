@@ -1,18 +1,19 @@
 package com.example.homebudgetpollub;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +31,6 @@ import org.joda.time.Weeks;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,57 +83,39 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         onlineUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         expensesRef = FirebaseDatabase.getInstance().getReference("expenses").child(onlineUserId);
-        budgetRef  = FirebaseDatabase.getInstance().getReference("budget").child(onlineUserId);
+        budgetRef = FirebaseDatabase.getInstance().getReference("budget").child(onlineUserId);
         personalRef = FirebaseDatabase.getInstance().getReference("personal").child(onlineUserId);
 
-        budgetCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, BudgetActivity.class);
-                startActivity(intent);
-            }
+        budgetCardView.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, BudgetActivity.class);
+            startActivity(intent);
         });
 
-        todayCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TodaySpendingActivity.class);
-                startActivity(intent);
-            }
+        todayCardView.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, TodaySpendingActivity.class);
+            startActivity(intent);
         });
 
-        weekCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, WeekSpendingActivity.class);
-                intent.putExtra("type", "week");
-                startActivity(intent);
-            }
+        weekCardView.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, WeekSpendingActivity.class);
+            intent.putExtra("type", "week");
+            startActivity(intent);
         });
 
-        monthCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, WeekSpendingActivity.class);
-                intent.putExtra("type", "month");
-                startActivity(intent);
-            }
+        monthCardView.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, WeekSpendingActivity.class);
+            intent.putExtra("type", "month");
+            startActivity(intent);
         });
 
-        analyticsCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ChooseAnalyticActivity.class);
-                startActivity(intent);
-            }
+        analyticsCardView.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, ChooseAnalyticActivity.class);
+            startActivity(intent);
         });
 
-        historyCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
-                startActivity(intent);
-            }
+        historyCardView.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            startActivity(intent);
         });
 
 
@@ -148,28 +130,28 @@ public class MainActivity extends AppCompatActivity {
         personalRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
+                if (snapshot.exists()) {
                     int budget;
-                    if(snapshot.hasChild("budget")) {
+                    if (snapshot.hasChild("budget")) {
                         budget = Integer.parseInt(snapshot.child("budget").getValue().toString());
                     } else {
                         budget = 0;
                     }
                     int monthSpending;
-                    if(snapshot.hasChild("month")) {
+                    if (snapshot.hasChild("month")) {
                         monthSpending = Integer.parseInt(snapshot.child("month").getValue().toString());
                     } else {
                         monthSpending = 0;
                     }
 
                     int savings = budget - monthSpending;
-                    savingsTv.setText("$"+savings);
+                    savingsTv.setText("$" + savings);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("firebase", "error", error.toException());
             }
         });
     }
@@ -185,18 +167,18 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 totalAmountMonth = 0;
 
-                for (DataSnapshot ds: snapshot.getChildren()){
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     Data data = ds.getValue(Data.class);
                     totalAmountMonth += data.getAmount();
                 }
 
                 personalRef.child("month").setValue(totalAmountMonth);
-                mothTv.setText("$"+totalAmountMonth);
+                mothTv.setText("$" + totalAmountMonth);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("firebase", "error", error.toException());
             }
         });
     }
@@ -205,25 +187,25 @@ public class MainActivity extends AppCompatActivity {
         MutableDateTime epoch = new MutableDateTime();
         epoch.setDate(0);
         DateTime now = new DateTime();
-        Weeks weeks = Weeks.weeksBetween(epoch,now);
+        Weeks weeks = Weeks.weeksBetween(epoch, now);
         Query query = expensesRef.orderByChild("week").equalTo(weeks.getWeeks());
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 totalAmountWeek = 0;
 
-                for (DataSnapshot ds: snapshot.getChildren()){
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     Data data = ds.getValue(Data.class);
                     totalAmountWeek += data.getAmount();
                 }
 
                 personalRef.child("week").setValue(totalAmountWeek);
-                weekTv.setText("$"+totalAmountWeek);
+                weekTv.setText("$" + totalAmountWeek);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("firebase", "error", error.toException());
             }
         });
 
@@ -240,18 +222,18 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 totalAmountDay = 0;
 
-                for (DataSnapshot ds: snapshot.getChildren()){
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     Data data = ds.getValue(Data.class);
                     totalAmountDay += data.getAmount();
                 }
 
                 personalRef.child("today").setValue(totalAmountDay);
-                todayTv.setText("$"+totalAmountDay);
+                todayTv.setText("$" + totalAmountDay);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("firebase", "error", error.toException());
             }
         });
     }
@@ -262,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 totalAmountBudget = 0;
                 if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
-                    for(DataSnapshot snap: snapshot.getChildren()){
+                    for (DataSnapshot snap : snapshot.getChildren()) {
                         Data data = snap.getValue(Data.class);
                         totalAmountBudget += data.getAmount();
                     }
@@ -275,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("firebase", "error", error.toException());
             }
         });
     }
@@ -289,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.account){
+        if (item.getItemId() == R.id.account) {
             Intent intent = new Intent(MainActivity.this, AccountActivity.class);
             startActivity(intent);
         }

@@ -1,15 +1,15 @@
 package com.example.homebudgetpollub;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 public class ChooseAnalyticActivity extends AppCompatActivity {
 
-    private CardView todayCardView,weekCardView,monthCardView;
+    private CardView todayCardView, weekCardView, monthCardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +20,9 @@ public class ChooseAnalyticActivity extends AppCompatActivity {
         weekCardView = findViewById(R.id.weekCardView);
         monthCardView = findViewById(R.id.monthCardView);
 
-        todayCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ChooseAnalyticActivity.this, DailyAnalyticsActivity.class);
-                startActivity(intent);
-            }
+        todayCardView.setOnClickListener(view -> {
+            Intent intent = new Intent(ChooseAnalyticActivity.this, DailyAnalyticsActivity.class);
+            startActivity(intent);
         });
 
         weekCardView.setOnClickListener(new View.OnClickListener() {
